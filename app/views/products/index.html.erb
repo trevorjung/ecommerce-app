@@ -1,0 +1,8 @@
+<p> <% @products.each do |product| %>
+      <%= product.name %> 
+      <%= product.price %> 
+      <img src= "<%=product.image %>">  
+      <%= product.description %> 
+  <% end %> 
+</p>
+
