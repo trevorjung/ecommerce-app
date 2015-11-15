@@ -1,6 +1,34 @@
 // Place all the styles related to the products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-p {
-  color: blue;
+h1 {
+  color: orange;
 }
+
+ div {
+   border: 2px solid white;
+   width: 400px;
+   border-radius: 10px; 
+   padding: 25px;
+   margin: 25px;
+   background-color: grey;
+   color: orange;
+
+}
+
+div div {
+  background-color: green;
+
+}
+
+table {
+  border: 1px solid black;
+  width: 200px;
+  padding: 25px;  
+}
+
+img {
+  height: 200px;
+  width: 200px;
+}
+

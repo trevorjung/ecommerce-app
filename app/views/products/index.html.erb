@@ -1,8 +1,16 @@
-<p> <% @products.each do |product| %>
-      <%= product.name %> 
-      <%= product.price %> 
-      <img src= "<%=product.image %>">  
-      <%= product.description %> 
-  <% end %> 
-</p>
+<h1> Shoes </h1> 
+
+<% @products.each do |product| %>
+
+<div>
+
+      
+    <p> Name: <%= link_to product.name, "/products/#{product.id}" %> </p> 
+    <p> Price: <%= product.price %> </p> 
+    <p> <img src= "<%= product.image %>"> </p> 
+    <p> Description: <%= product.description %> </p> 
+</div>
+
+<% end %> 
+
 
