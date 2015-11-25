@@ -1,16 +1,20 @@
 <h1> Shoes </h1> 
 
+
+
 <% @products.each do |product| %>
 
-<div>
+<div class="col-md-3">
 
       
     <p> Name: <%= link_to product.name, "/products/#{product.id}" %> </p> 
-    <p> Price: <%= product.price %> </p> 
-    <p> <img src= "<%= product.image %>"> </p> 
+    <p> Supplier: <%= product.supplier.name %> </p>
+    <p> Price: <%= number_to_currency(product.price) %> </p> 
+    <p> Tax: <%= number_to_currency(product.tax) %> </p>
+    <p> <img src= "<%= product.image %>" class="img-responsive"> </p> 
     <p> Description: <%= product.description %> </p> 
+    <p> Total: <%= number_to_currency(product.total) %> </p>
+
 </div>
 
 <% end %> 
-
-

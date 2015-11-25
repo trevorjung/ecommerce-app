@@ -13,7 +13,7 @@ class ProductsController < ApplicationController
    image = params[:image]
    description = params[:description]
 
-   product = Product.create(name: name, price: price, image: image, description: description)
+   product = Product.create(name: name, price: price, image: image, description: description, user_id: current_user.id)
    flash[:success] = "Product Created, let's go"
    redirect_to "/products/#{product.id}" 
  
@@ -50,6 +50,12 @@ class ProductsController < ApplicationController
     product.destroy
     flash[:danger] = "Product Destroyed, yah"
     redirect_to "/"
+  end
+
+  def search
+    search_term = params[:search]
+    @products = Product.where("name LIKE ? OR description LIKE ?", "#%{search_term}%","#%{search_term}%")
+    render :index
   end
 
 end

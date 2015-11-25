@@ -1,9 +1,46 @@
 <h1> Product </h1>
 
-<p> <%= @product.name %> </p>
-<p> <%= @product.price %> </p>
-<p> <img src= "<%= @product.image %>"> </p>
-<p> <%= @product.description %> </p>
+<h3> Name: <%= @product.name %> </h3>
+<p> Supplier: <%= @product.supplier.name %> </p>
+<p> Price:  <%= number_to_currency(@product.price) %> </p>
+<p> Tax: <%= number_to_currency(@product.tax.to_f) %> </p>
+<p> Message: <%= @product.sale_message %> </p>
+
+<% @product.images.each do |image| %>
+
+<p> 
+
+<img srcconfig.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+<img class="img-responsive" src= "<%= image.image_1 %>" alt="<%= @product.name %>" >
+
+<img class="img-responsive" src= "<%= image.image_2 %>" alt="<%= @product.name %>" >
+
+<img class="img-responsive" src= "<%= image.image_3 %>" alt="<%= @product.name %>" >
+
+
+</p>
+
+<% end %>
+<p> Description: <%= @product.description %> </p>
+<h3> Total: <%= number_to_currency(@product.total) %> </h3>
+
+<%= form_tag '/orders', method: :post do %>
+<div>
+  <%= label_tag :quantity, "Number of items" %>
+  <%= text_area_tag :quantity %>
+</div>
+<div>
+  <%= label_tag :product_id, "Product Id" %>
+  <%= text_area_tag :product_id %>
+</div>
+
+<div>
+  <%= submit_tag "Buy Now!" %>
+</div>
+
+<% end %>
 
 <%= link_to "Delete", "/products/#{@product.id}", method: :delete %>
 <%= link_to "Edit", "/products/#{@product.id}/edit", method: :get %>
+
