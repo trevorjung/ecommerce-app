@@ -6,7 +6,7 @@
 <h3> Subtotal: <%= number_to_currency(@order.subtotal) %> </h3>
 <h3> Tax: <%= number_to_currency(@order.tax) %> </h3>
 <h3> Total: <%= number_to_currency(@order.total) %> </h3>
-<h3> Purchased: <%= @order.created_at %> </h3>
+<h3> Purchased: <%= @order.created_at.strftime("%A, %d %b %Y %l:%M %p") %> </h3>
 <h3> Purchased By: <%= @order.user.email %> </h3>
 
-<img src="<%= @order.product.images.first.image_1%>" >
+<img class = "img-responsive" src="<%= @order.product.images.first.image_1%>" >

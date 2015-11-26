@@ -1,6 +1,5 @@
 class ChangePriceOfProducts < ActiveRecord::Migration
   def change
-    change_column :products, :price, :decimal, precision: 10, scale: 2
-    
+    change_column :products, :price, 'numeric USING price::numeric(10,2)'
   end
 end
