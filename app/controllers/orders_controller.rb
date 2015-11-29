@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     total = tax + subtotal
 
     order = Order.create(user_id: current_user.id, product_id: product.id, quantity: quantity, subtotal: subtotal, tax: tax, total: total)
-
+    
     flash[:success] = "Order Placed"
     redirect_to "/orders/#{order.id}"
   end

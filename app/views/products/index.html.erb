@@ -1,5 +1,12 @@
 <h1> Shoes </h1> 
 
+<div class="pull right view-choice">
+  <p> 
+  <% @categories.each do |category| %>
+      <%= link_to "#{category.name} Shoes", "/products?category=#{category.name}" %>
+  </p>
+  <% end %>
+</div>
 
 
 <% @products.each do |product| %>

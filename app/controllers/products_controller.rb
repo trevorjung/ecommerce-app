@@ -1,7 +1,20 @@
 class ProductsController < ApplicationController
 
   def index
-    @products = Product.all
+    @categories = Category.all
+    if params[:view] == "discounted"
+     @products = Product.where("price < ?", 50)
+    elsif params[:view] == "Order by Price"
+     @products = Product.order(:price)
+    elsif params[:view] == "high_to_low"
+     @products = Product.order(price: :DESC)
+    elsif params[:category] 
+     @products = Category.find_by(name: params[:category]).products
+      
+    else
+      @products = Product.all
+
+    end
   end
 
   def new
@@ -13,25 +26,26 @@ class ProductsController < ApplicationController
    image = params[:image]
    description = params[:description]
 
-   product = Product.create(name: name, price: price, image: image, description: description, user_id: current_user.id)
-   flash[:success] = "Product Created, let's go"
+   @product = Product.create(name: name, price: price, image: image, description: description, user_id: current_user.id)
+
+   if @product.save
+   flash[:success] = "Product Created"
    redirect_to "/products/#{product.id}" 
- 
-  end 
+   else
+    render :new
+  end
+ end 
 
   def show
-    id = params[:id]
-    @product = Product.find_by(id: id)
+    @product = Product.find_by(id: params[:id])
   end 
 
   def edit
-    id = params[:id]
-     @product = Product.find_by(id: id)
+     @product = Product.find_by(id: params[:id])
   end
 
   def update
-    id = params[:id]
-    product = Product.find_by(id: id)
+    product = Product.find_by(id: params[:id])
 
     name = params[:name]
     price = params[:price]
@@ -45,8 +59,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    id = params[:id]
-    product = Product.find_by(id: id)
+    product = Product.find_by(id: params[:id])
     product.destroy
     flash[:danger] = "Product Destroyed, yah"
     redirect_to "/"

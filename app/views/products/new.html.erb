@@ -1,3 +1,12 @@
+<ul>
+<li> <% if @product && @product.errors.any? %>
+      <% @product.errors.full_messages.each do |message| %>
+        <%= message %> </li>
+    <% end %>
+  <% end %>
+</ul>
+
+
 <%= form_tag '/products/create', method: :post do %>
 <div>
   <%= label_tag :name, "Enter a new name" %>
