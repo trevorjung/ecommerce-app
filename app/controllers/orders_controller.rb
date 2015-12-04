@@ -1,20 +1,26 @@
 class OrdersController < ApplicationController
-
-  def new
-  end
+  before_action :authenticate_user!
 
   def create
-    product = Product.find_by(id: params[:product_id])
+    to_buy_products = CartedProduct.where(user_id: current_user.id, status: 'carted')
 
-    quantity = params[:quantity].to_i
-    subtotal = product.price * quantity
-    tax = product.tax * quantity
+    
+    subtotal = calculate_subtotal(to_buy_products)
+    tax = calculate_tax(to_buy_products)
     total = tax + subtotal
 
-    order = Order.create(user_id: current_user.id, product_id: product.id, quantity: quantity, subtotal: subtotal, tax: tax, total: total)
+    @order = Order.new(user_id: current_user.id, subtotal: subtotal, tax: tax, total: total)
+      
     
-    flash[:success] = "Order Placed"
-    redirect_to "/orders/#{order.id}"
+    if @order.save
+      session[:checkout_count] = nil
+      to_buy_products.update_all(status: "purchased", order_id: @order.id)
+      flash[:success] = "Checkout Completed"
+      redirect_to "/orders/#{@order.id}"
+    else 
+      render template: "cartedproducts/index"
+    end
+
   end
 
   def show

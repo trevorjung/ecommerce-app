@@ -24,18 +24,17 @@
 <p> Description: <%= @product.description %> </p>
 <h3> Total: <%= number_to_currency(@product.total) %> </h3>
 
-<%= form_tag '/orders', method: :post do %>
+<%= form_tag '/carted_products/create', method: :post do %>
 <div>
   <%= label_tag :quantity, "Number of items" %>
   <%= text_area_tag :quantity %>
 </div>
 <div>
-  <%= label_tag :product_id, "Product Id" %>
-  <%= text_area_tag :product_id %>
+  <%= hidden_field_tag :product_id, @product.id %>
 </div>
 
 <div>
-  <%= submit_tag "Buy Now!" %>
+  <%= submit_tag "Add to Cart!" %>
 </div>
 
 <% end %>

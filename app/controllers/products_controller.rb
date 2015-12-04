@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :valley_forge!, only: [:create, :edit, :update, :destroy]
+   
 
   def index
     @categories = Category.all
@@ -18,6 +20,11 @@ class ProductsController < ApplicationController
   end
 
   def new
+    if current_user && current_user.role.name == "admin"
+      @product = Product.new
+    else
+      redirect_to "/"
+    end
   end
 
   def create
@@ -26,7 +33,7 @@ class ProductsController < ApplicationController
    image = params[:image]
    description = params[:description]
 
-   @product = Product.create(name: name, price: price, image: image, description: description, user_id: current_user.id)
+   @product = Product.new(name: name, price: price, image: image, description: description, user_id: current_user.id)
 
    if @product.save
    flash[:success] = "Product Created"
@@ -38,6 +45,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
+    @cartedproduct = CartedProduct.new
   end 
 
   def edit

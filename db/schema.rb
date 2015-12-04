@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129192802) do
+ActiveRecord::Schema.define(version: 20151203025602) do
+
+  create_table "carted_products", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "product_id", limit: 4
+    t.integer  "quantity",   limit: 4
+    t.string   "status",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "order_id",   limit: 4
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -37,8 +47,6 @@ ActiveRecord::Schema.define(version: 20151129192802) do
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
-    t.integer  "product_id", limit: 4
-    t.integer  "quantity",   limit: 4
     t.decimal  "subtotal",             precision: 10, scale: 2
     t.decimal  "tax",                  precision: 10, scale: 2
     t.decimal  "total",                precision: 10, scale: 2
@@ -55,6 +63,12 @@ ActiveRecord::Schema.define(version: 20151129192802) do
     t.datetime "updated_at",                null: false
     t.integer  "supplier_id", limit: 4
     t.integer  "user_id",     limit: 4
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "suppliers", force: :cascade do |t|
@@ -78,6 +92,7 @@ ActiveRecord::Schema.define(version: 20151129192802) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
+    t.integer  "role_id",                limit: 4,   default: 2
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

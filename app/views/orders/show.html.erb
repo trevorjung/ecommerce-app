@@ -1,12 +1,7 @@
-<h1> Current Orders </h1>
+<h1> Current Confirmed Orders </h1>
 
-<h3> Order Id: <%= @order.id %> </h3>
-<h3> Product: <%= @order.product.name %> </h3>
-<h3> Quantity: <%= @order.quantity %> </h3>
-<h3> Subtotal: <%= number_to_currency(@order.subtotal) %> </h3>
-<h3> Tax: <%= number_to_currency(@order.tax) %> </h3>
-<h3> Total: <%= number_to_currency(@order.total) %> </h3>
-<h3> Purchased: <%= @order.created_at.strftime("%A, %d %b %Y %l:%M %p") %> </h3>
-<h3> Purchased By: <%= @order.user.email %> </h3>
+<% @order.carted_products.each do |carted_product| %>
 
-<img class = "img-responsive" src="<%= @order.product.images.first.image_1%>" >
+<h3> Product: <%= carted_product.product.name %> </h3>
+
+<% end %> 
