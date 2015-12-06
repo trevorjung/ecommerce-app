@@ -1,0 +1,11 @@
+<h1> Supplier Information </h1>
+
+<ul>
+  <li> Company Name: <%= @supplier.company_name %></li>
+  <li> First Name: <%= @supplier.first_name %></li>
+  <li> Last Name: <%= @supplier.last_name %> </li>
+  <li> Phone Number: <%= @supplier.phone %></li>
+  <li> Email: <%= @supplier.email %></li>
+</ul>
+
+<% link_to "Remove Supplier", "/suppliers/#{supplier.id}", method: delete: %> 

@@ -15,7 +15,7 @@
 
       
     <p> Name: <%= link_to product.name, "/products/#{product.id}" %> </p> 
-    <p> Supplier: <%= product.supplier.name %> </p>
+    <p> Supplier: <%= product.supplier.company_name %> </p>
     <p> Price: <%= number_to_currency(product.price) %> </p> 
     <p> Tax: <%= number_to_currency(product.tax) %> </p>
     <p> <img src= "<%= product.image %>" class="img-responsive"> </p> 
